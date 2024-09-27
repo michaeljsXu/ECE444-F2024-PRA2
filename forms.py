@@ -14,7 +14,7 @@ class MainForm(FlaskForm):
         if '@' not in field.data:
             error_msg += "Please include an '@' in the email address. "
             at_err = True
-        if 'utoronto' not in field.data:
+        if 'utoronto' not in field.data.split('@')[-1]:
             error_msg += "Please use your uoft email address. "
             uoft_err = True
         if at_err or uoft_err:
@@ -24,7 +24,7 @@ class MainForm(FlaskForm):
             if at_err and uoft_err:
                 error_msg += " and "
             if uoft_err:
-                error_msg += "utoronto"
+                error_msg += "utoronto in the domain"
         error_msg += "."
         if at_err or uoft_err:
             raise ValidationError(error_msg)
